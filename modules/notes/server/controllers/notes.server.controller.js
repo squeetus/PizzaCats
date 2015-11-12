@@ -34,6 +34,13 @@ exports.read = function (req, res) {
 };
 
 /**
+ * Show all notes for a given user
+ */
+exports.readByUser = function (req, res) {
+  res.json(req.notes);
+};
+
+/**
  * Update a note
  */
 exports.update = function (req, res) {
@@ -89,7 +96,6 @@ exports.list = function (req, res) {
  * Note middleware
  */
 exports.noteByID = function (req, res, next, id) {
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
       message: 'Note is invalid'
@@ -105,6 +111,31 @@ exports.noteByID = function (req, res, next, id) {
       });
     }
     req.note = note;
+    next();
+  });
+};
+
+/**
+ * Note middleware
+ */
+exports.noteByUser = function (req, res, next, id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'User id is invalid'
+    });
+  }
+
+  Note.find({
+    user: {_id: req.params.userId }
+  }).exec(function (err, notes) {
+    if (err) {
+      return next(err);
+    } else if (!notes || notes.length === 0) {
+      return res.status(404).send({
+        message: 'No notes have been found for the specified user'
+      });
+    }
+    req.notes = notes;
     next();
   });
 };

@@ -18,6 +18,11 @@ module.exports = function (app) {
     .put(notes.update)
     .delete(notes.delete);
 
+  // Multiple note routes
+  app.route('/api/notes/users/:userId').all(notesPolicy.isAllowed)
+    .get(notes.readByUser);
+
   // Finish by binding the note middleware
   app.param('noteId', notes.noteByID);
+  app.param('userId', notes.noteByUser);
 };

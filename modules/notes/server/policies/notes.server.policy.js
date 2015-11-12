@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/notes/:noteId',
       permissions: '*'
+    }, {
+      resources: '/api/notes/users/:userId',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -29,6 +32,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/notes/:noteId',
       permissions: ['get']
+    }, {
+      resources: '/api/notes/users/:userId',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -37,6 +43,9 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/notes/:noteId',
+      permissions: ['get']
+    }, {
+      resources: '/api/notes/users/:userId',
       permissions: ['get']
     }]
   }]);
