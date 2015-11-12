@@ -1,6 +1,7 @@
 <section ng-controller="NotesController">
   <div class="page-header">
     <h1>New Note</h1>
+    <h4>What's going on for you?</h4>
   </div>
   <div class="col-md-12">
     <form name="noteForm" class="form-horizontal" ng-submit="create(noteForm.$valid)" novalidate>
@@ -10,6 +11,19 @@
           <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
           <div ng-messages="noteForm.title.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Note title is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mood">Mood</label><br />
+
+          <div class="col-sm-2">
+            <select class="form-control" ng-model="mood" ng-options="mood for mood in moods"></select>
+          </div>
+          <div class="col-sm-4">
+            <input name="mood" type="text" ng-model="mood" id="mood" class="form-control" placeholder="Mood">
+          </div>
+          <div ng-messages="noteForm.mood.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Note mood is required.</p>
           </div>
         </div>
         <div class="form-group">

@@ -13,6 +13,19 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="mood">Mood</label><br />
+
+          <div class="col-sm-2">
+            <select class="form-control" ng-model="note.mood" ng-options="mood for mood in moods"></select>
+          </div>
+          <div class="col-sm-4">
+            <input name="mood" type="text" ng-model="note.mood" id="mood" class="form-control" placeholder="Mood">
+          </div>
+          <div ng-messages="noteForm.mood.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Note mood is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
           <label for="content">Content</label>
           <textarea name="content" ng-model="note.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>

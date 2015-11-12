@@ -8,9 +8,10 @@
         Posted on
         <span ng-bind="note.created | date:'mediumDate'"></span>
         by
-        <span ng-bind="note.user.displayName"></span>
+        <span ng-bind="note.user.displayName"></span>.
+        <br/>mood: [<span ng-bind="note.mood"></span>]
       </small>
-      <h4 class="list-group-item-heading" ng-bind="note.title"></h4>
+      <h4 class="list-group-item-heading" ><span ng-bind="note.title"></span></h4>
       <p class="list-group-item-text" ng-bind="note.content"></p>
     </a>
   </div>

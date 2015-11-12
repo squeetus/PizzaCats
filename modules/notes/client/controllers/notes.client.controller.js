@@ -1,8 +1,8 @@
 'use strict';
 
 // notes controller
-angular.module('notes').controller('NotesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Notes',
-  function ($scope, $stateParams, $location, Authentication, Notes) {
+angular.module('notes').controller('NotesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Notes', 'Moods',
+  function ($scope, $stateParams, $location, Authentication, Notes, Moods) {
     $scope.authentication = Authentication;
 
     // Create new note
@@ -18,7 +18,8 @@ angular.module('notes').controller('NotesController', ['$scope', '$stateParams',
       // Create new note object
       var note = new Notes({
         title: this.title,
-        content: this.content
+        content: this.content,
+        mood: this.mood
       });
 
       // Redirect after save
@@ -28,6 +29,8 @@ angular.module('notes').controller('NotesController', ['$scope', '$stateParams',
         // Clear form fields
         $scope.title = '';
         $scope.content = '';
+        $scope.mood = '';
+
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -80,5 +83,7 @@ angular.module('notes').controller('NotesController', ['$scope', '$stateParams',
         noteId: $stateParams.noteId
       });
     };
+
+    $scope.moods = Moods.query();
   }
 ]);

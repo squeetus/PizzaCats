@@ -16,6 +16,7 @@
       <span ng-bind="note.created | date:'mediumDate'"></span>
       by
       <span ng-bind="note.user.displayName"></span>
+      <br/>mood: [<span ng-bind="note.mood"></span>]
     </em>
   </small>
   <p class="lead" ng-bind="note.content"></p>
