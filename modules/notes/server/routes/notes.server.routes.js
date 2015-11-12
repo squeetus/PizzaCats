@@ -7,6 +7,11 @@ var notesPolicy = require('../policies/notes.server.policy'),
   notes = require('../controllers/notes.server.controller');
 
 module.exports = function (app) {
+
+  // Notes unique moods
+  app.route('/api/moods').all(notesPolicy.isAllowed)
+    .get(notes.moods);
+
   // Notes collection routes
   app.route('/api/notes').all(notesPolicy.isAllowed)
     .get(notes.list)

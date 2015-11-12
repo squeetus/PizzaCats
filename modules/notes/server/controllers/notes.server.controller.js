@@ -48,6 +48,7 @@ exports.update = function (req, res) {
 
   note.title = req.body.title;
   note.content = req.body.content;
+  note.mood = req.body.mood;
 
   note.save(function (err) {
     if (err) {
@@ -89,6 +90,21 @@ exports.list = function (req, res) {
     } else {
       res.json(notes);
     }
+  });
+};
+
+/**
+* Unique Moods
+*/
+exports.moods = function (req, res) {
+  Note.distinct("mood").exec(function (err, moods) {
+      if(err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.json(moods);
+      }
   });
 };
 

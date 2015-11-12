@@ -15,6 +15,9 @@ exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
+      resources: '/api/moods',
+      permissions: '*'
+    }, {
       resources: '/api/notes',
       permissions: '*'
     }, {
@@ -27,6 +30,9 @@ exports.invokeRolesPolicies = function () {
   }, {
     roles: ['user'],
     allows: [{
+      resources: '/api/moods',
+      permissions: ['get']
+    }, {
       resources: '/api/notes',
       permissions: ['get', 'post']
     }, {
@@ -39,6 +45,9 @@ exports.invokeRolesPolicies = function () {
   }, {
     roles: ['guest'],
     allows: [{
+      resources: '/api/moods',
+      permissions: ['get']
+    }, {
       resources: '/api/notes',
       permissions: ['get']
     }, {
