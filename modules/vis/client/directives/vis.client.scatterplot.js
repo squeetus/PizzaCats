@@ -4,7 +4,7 @@ angular.module('vis')
   .directive('scatterplot', function($window) {
     return{
         restrict: "EA",
-        template: "<svg width='600' height='200'></svg>",
+        template: "<svg width='600' height='400'></svg>",
         link: function(scope, elem, attrs){
           scope.$on("Data_Ready", function  (){
 
@@ -29,12 +29,12 @@ angular.module('vis')
 
             var margin = {top: 20, right: 20, bottom: 30, left: 60},
                width = 800 - margin.left - margin.right,
-               height = 200 - margin.top - margin.bottom;
+               height = 300 - margin.top - margin.bottom;
 
              var parseDate = d3.time.format('%Y-%m-%dT%H:%M:%S.%LZ').parse;
 
              var r = d3.scale.linear()
-              .range([3,8]);
+              .range([5,10]);
 
              var x = d3.time.scale()
                .range([30, width]);
@@ -45,15 +45,11 @@ angular.module('vis')
              var xAxis = d3.svg.axis()
                .scale(x)
                .orient('bottom')
-               .tickFormat(d3.time.format("%a %d %I%p"));
+               .tickFormat(d3.time.format('%a %d-%b %H:%p'));
 
              var yAxis = d3.svg.axis()
                .scale(y)
                .orient('left');
-
-             var line = d3.svg.line()
-               .x(function(d) { return x(d.date); })
-               .y(function(d) { return y(d.close); });
 
              svg
               .attr('width', width + margin.left + margin.right)
@@ -76,11 +72,12 @@ angular.module('vis')
                .enter().append("svg:circle")
                  .attr("r", function(d) { return r(d.content.length); })
                  .attr("cx", function(d) { return x(d.date); })
-                 .attr("cy", function(d) { return y(3); })
+                 .attr("cy", function(d) { return y(7); })
                  .on("click", function(d) {
                    d3.select(this).transition()
                           .duration(250)
-                          .style("color", "white");
+                          .style("fill", "red")
+                          .attr("r", function(d) { return 2*r(d.content.length); });
                    div.transition()
                           .duration(200)
                           .style("opacity", 0.9);
@@ -91,7 +88,8 @@ angular.module('vis')
                   .on("mouseout", function(d) {
                     d3.select(this).transition()
                            .duration(250)
-                           .style("color", "black");
+                           .attr("r", function(d) { return r(d.content.length); })
+                           .style("fill", "black");
                       div.transition()
                           .duration(500)
                           .style("opacity", 0)
@@ -101,8 +99,14 @@ angular.module('vis')
              // Add the X Axis
              svg.append("g")
                  .attr("class", "x axis")
-                 .attr("transform", "translate(0," + height + ")")
-                 .call(xAxis);
+                 .attr("transform", "translate(0," + (height - 100) + ")")
+                 .call(xAxis)
+                 .selectAll("text")
+                     .attr("y", 0)
+                     .attr("x", 9)
+                     .attr("dy", ".35em")
+                     .attr("transform", "rotate(90)")
+                     .style("text-anchor", "start");
 
              // Add the Y Axis
              svg.append("g")
