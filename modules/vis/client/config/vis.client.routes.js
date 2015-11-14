@@ -15,8 +15,12 @@ angular.module('vis').config(['$stateProvider',
         // templateUrl: 'modules/vis/client/views/default-vis.client.view.html'
       })
       .state('vis.default', {
-        url: '',
+        url: '/default',
         templateUrl: 'modules/vis/client/views/default-vis.client.view.html'
+      })
+      .state('vis.scatterplot', {
+        url: '',
+        templateUrl: 'modules/vis/client/views/scatterplot-vis.client.view.html'
       });
   }
 ]);

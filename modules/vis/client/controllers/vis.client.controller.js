@@ -15,13 +15,18 @@ angular.module('vis').controller('VisController', ['$scope', '$stateParams', '$l
     //   $scope.notes = Vis.query();
     // };
 
-    // Find existing note
+    // Find existing notes for a user
     $scope.findByUser = function () {
       if(!Authentication.user._id) {
         $location.url('/forbidden');
       }
       $scope.notes = Vis.query({
         userId: Authentication.user._id
+      });
+      $scope.notes.$promise.then(function(data){
+
+          $scope.notes = data;
+          $scope.$broadcast("Data_Ready");
       });
     };
   }

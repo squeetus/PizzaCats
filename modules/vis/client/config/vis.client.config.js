@@ -14,7 +14,7 @@ angular.module('vis').run(['Menus',
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'vis', {
       title: 'Visualize Notes',
-      state: 'vis.default'
+      state: 'vis.scatterplot'
     });
   }
 ]);

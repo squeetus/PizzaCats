@@ -53,6 +53,7 @@
       mockNote = new Notes({
         _id: '525a8422f6d0f87f0e407a33',
         title: 'An Note about MEAN',
+        mood: 'happy',
         content: 'MEAN rocks!'
       });
 
@@ -104,11 +105,13 @@
         // Create a sample note object
         sampleNotePostData = new Notes({
           title: 'An Note about MEAN',
+          mood: 'happy',
           content: 'MEAN rocks!'
         });
 
         // Fixture mock form input values
         scope.title = 'An Note about MEAN';
+        scope.mood = 'happy';
         scope.content = 'MEAN rocks!';
 
         spyOn($location, 'path');
@@ -125,6 +128,7 @@
         // Test form inputs are reset
         expect(scope.title).toEqual('');
         expect(scope.content).toEqual('');
+        expect(scope.mood).toEqual('');
 
         // Test URL redirection after the note was created
         expect($location.path.calls.mostRecent().args[0]).toBe('notes/' + mockNote._id);
